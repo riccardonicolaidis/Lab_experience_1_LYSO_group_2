@@ -1,0 +1,24 @@
+#!/bin/bash 
+
+if [ $# -lt 2 ]
+  then
+      echo "usage: ./mergefile.sh ../DATA/DIRNAME RUNID"
+      exit
+fi
+
+# ./mergefile testlysofolderNN NN 
+mkdir ../DST
+rm -rf ../DST/$1.dst
+touch ../DST/$1.dst
+echo "producing" ../DST/$1.dst
+for iname in $1/*.txt 
+do
+    num=$2${iname:(-9):(-4)}
+    val=$( cat $iname | grep value | sed 's/value/'"$num"'/g' )
+    if [[ $val =~ .*inar.* ]]
+    then
+	echo $num "broken"
+    else
+	echo $val >> ../DST/$1.dst
+    fi
+done
