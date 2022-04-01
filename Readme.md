@@ -1,5 +1,7 @@
 # Lab esperienza 1
 
+![diagram](./diagram.svg)
+
 - FILE NAME: LYSO3.dst ID 300
 - FILE NAME: LYSO4.dst ID 400
 
