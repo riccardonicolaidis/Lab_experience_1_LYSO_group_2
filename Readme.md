@@ -1,6 +1,5 @@
 # Lab esperienza 1
 
-<<<<<<< HEAD
 ## Table of contents
 - Logbook
 - Data analysis
@@ -10,10 +9,8 @@
 Below it has been reported the log concerned the data acquired during the lab experience.
 
 -----------------------------------
-=======
 ![diagram](./diagram.svg)
 
->>>>>>> b267e95827d8d82e5328dc1119aab2855629f44b
 - FILE NAME: LYSO3.dst ID 300
 - FILE NAME: LYSO4.dst ID 400
 
