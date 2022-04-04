@@ -1,26 +1,47 @@
 
-void LYSO_NaI1_NaI2(TString Fname="../DST/LYSO_NaI1_NaI2.dst"){
-  TTree* tree = new TTree("tree","data from ascii file");
-  tree->ReadFile(Form("%s",Fname.Data()),"evnum/I:A1/F:A2/F:A3/F:A4/F:T12/F:T14/F");
+void LYSO_NaI1_NaI2(TString Fname="../DST/LYSO3.dst"){
+
+  //TTree* tree = new TTree("tree","data from ascii file");
+  //tree->ReadFile(Form("%s",Fname.Data()),"evnum/I:A1/F:A2/F:A3/F:A4/F:T12/F:T14/F");
+  TTree* tree = new TTree("tree","data from ascii file"); 
+  tree->ReadFile(Fname.Data(),"evnum/I:A1/F:A2/F:A3/F:A4/F:T12/F:T32/F:T42/F:T34/F:PK1/F:PK2/F:PK3/F:PK4/F");
+  
+  // Creo un nuovo istogramma e plotto le aree del sodio
+  // Istogrammi 2D per i tempi per puilire i dati
+
+  TString Mask = "T34!=0 && abs(-T32+4e-9)<3e-8 && abs(-T42+10e-9)<3e-8 && abs(-T12+40e-9)<3e-8 && T12!=0 && T42!=0 && -A3<13e-9 && -A4<13e-9 && -A3/PK3<0.3e-6 && -A4/PK4<0.3e-6 && -A2<5e-9";
+
 
 	TCanvas* c1 = new TCanvas();
-	tree->Draw("-A1:-A2", "-A1<15e-9 && -A2<20e-9", "colz");
-	TCanvas* c2 = new TCanvas();
-	tree->Draw("-A1:-A4", "-A4<2e-6 && -A1<20e-9", "colz");
-	TCanvas* c3= new TCanvas();
-	tree->Draw("-A1:-A4", "-A4<2e-6 && -A1<20e-9", "colz");
-	 
-  return;
-  
-  
-  tree->SetAlias("ELYSO","(-A4+3.360057e-10)*5.529926e+11");
-  //TCanvas* c1 = new TCanvas();
-  tree->Draw("-A2:-A1","-A1<14e-9 && -A2<18.e-9 && abs(T31-0.19e-6)<0.1e-6 && abs(T32-0.19e-6)<0.1e-6","colz");
+	tree->Draw("-T32:-T42", Mask, "colz");
+  TCanvas* c2 = new TCanvas();
+	tree->Draw("-T32:-T12", Mask , "colz");
 
-  //TCanvas* c2 = new TCanvas();
-  TH1D* h2= new TH1D("h2","",100,9e-9,18e-9);
-  tree->Draw("-A2>>h2","-A1<9e-9 && -A1>6.e-9 && abs(T31-0.19e-6)<0.1e-6 && abs(T32-0.19e-6)<0.1e-6","");
+	
+  // istogramma 2D delle aree NaI1 NaI2
+  TCanvas* c3 = new TCanvas();
+  tree->Draw("-A3:-A4", Mask ,"colz");
+  c3->SaveAs("../docs/assets/images/LYSO_A3_A4.png");
+  
+  TCanvas* b1 = new TCanvas();
+  tree->Draw("PK3:PK4", Mask , "colz");
+  // Istogrammi con dati filtrati 
+    b1->SaveAs("../docs/assets/images/LYSO_PK3_PK4.png");
+  // Istogramma per identificare eventi di pile up
+  TCanvas* b2 = new TCanvas();
+  tree->Draw("-A3/PK3:-A4/PK4", Mask , "colz");
+  // Non ci sono eccessi di eventi di pile up
+  
+  TCanvas* b3 = new TCanvas();
+  tree->Draw("-A2:(-A3-A4)", Mask ,"colz");
+
+  return;
+
+  TCanvas* a1 = new TCanvas();
+  TH1D* h2= new TH1D("h2","",100,1e-9,18e-9);
+  tree->Draw("-A3>>h2",Mask,"");
   gPad->SetLogy();
+  return;
   TF1* f2 = new TF1("f2","gaus+gaus(3)+gaus(6)",9e-9,18e-9);
   f2->SetParameter(0,31);
   f2->SetParameter(1,14.1e-9);
