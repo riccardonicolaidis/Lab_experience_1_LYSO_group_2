@@ -1,36 +1,54 @@
 
-void Na_LYSO_NaI1_NaI2(TString Fname="../DST/Nasource0.dst"){
+void Co_LYSO_2(TString Fname="../DST/Co2_1.dst"){
+  // Default file coem argomento della funzione
+  // TTree : classe di root per gestire variabili
+  // Il metodo fondamentale 'e il costruttore
+  // Stringa con nome e titolo
+  // Per info vai su root TTree::TTree(e tab
   TTree* tree = new TTree("tree","data from ascii file");
   tree->ReadFile(Fname.Data(),"evnum/I:A1/F:A2/F:A3/F:A4/F:T12/F:T32/F:T42/F:T34/F:PK1/F:PK2/F:PK3/F:PK4/F");
-
+  // Stringa costruita con la descrizione del contenuto delle colonne. I : sono i separatori delle variabili
   //  tree->Draw("-A4-A3:T34", "-A3<6e-8 && -A4<6e-8 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0 ", "colz");
-     tree->Draw("-A4:-A3", "-A3<6e-8 && -A4<6e-8 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0", "colz");
-  //    tree->Draw("T34:T32", "abs(T34+5e-9)<7e-9 && abs(T32)<2e-8", "colz");
-     //  return;
-
+  //  tree->Draw("-A4:-A3", "-A3<6e-8 && -A4<6e-8 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0", "colz");
+  //  tree->Draw("T34:T32", "abs(T34+5e-9)<7e-9 && abs(T32)<2e-8", "colz");
+  
+  tree->Draw("-A4:-A3", "-A3<0.6e-7 && -A4<0.6e-7", "colz");
+  TH2D* h2D = new TH2D("h2D",";NaI1[V s];NaI2 [V s]",200,0,60e-9,200,0,60e-9);
+  tree->Draw("T34:-A3/PK3", "-A3<0.6e-7 && -A4<0.6e-7 && abs(T34+5e-9)<2e-8 && T34!=0", "colz");
+  tree->Draw("-A4:-A3>>h2D", "-A3<0.6e-7 && -A4<0.6e-7 && abs(T34+5e-9)<2e-8 && T34!=0", "colz");
+  
      
 TCanvas* c2 = new TCanvas();
-  TH1D* h1 = new TH1D("h1",";NaI1[V s];Events",200,0,30e-9);
-  tree->Draw("-A3>>h1", "abs(-A4-18e-9)<3e-9 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0", "colz");
+  TH1D* h1 = new TH1D("h1",";NaI1[V s];Events",200,0,60e-9);
+  tree->Draw("-A3>>h1", "-A3<0.6e-7 && -A4<42e-9 && -A4>37e-9 && abs(T34+5e-9)<2e-8 && T34!=0", "");
   h1->SetLineColor(kRed+2);
   
+  
   TF1* f1 = new TF1("f1","[0]+gaus(1)",0,50e-9);
-  f1->SetParameter(0,0);
+  TF1* f2 = new TF1("f2","[0]+gaus(1)+[4]*x",0,50e-9);
+  f1->SetParameter(0,0); 
   f1->SetParameter(1,30);
-  f1->SetParameter(2,20.e-9); //centro gaussiana
-  f1->SetParameter(3,1e-9); //sigma gaussiana
-  h1->Fit("f1","L", " ", 17e-9, 24e-9); //L:likelyhood 
+  f1->SetParameter(2,40.e-9);           //centro gaussiana
+  f1->SetParameter(3,1e-9);             //sigma gaussiana
+  h1->Fit("f1","L", "", 35e-9, 50e-9); //L:likelyhood 
+  f1->SetLineColor(kGreen-3);
+  f2->SetParameter(0,0);
+  f2->SetParameter(1,30);
+  f2->SetParameter(2,40.e-9);           //centro gaussiana                                                                    
+  f2->SetParameter(3,1e-9);             //sigma gaussiana                                                                     
+  h1->Fit("f2","L", "", 35e-9, 50e-9); //L:likelyhood
+ 
 
-
+  f1->Draw("same");
   //h1->GetXaxis()->SetTitle("NaI2 (Vxs)");
   double p1 = f1->GetParameter(2); //centro gaussiana
   double ep1 = f1->GetParError(2); //suo errore
   double s1 = f1->GetParameter(3); //sigma gaussiana
   double e1 = f1->GetParError(3);  //suo errore
  cout << "NaI1" <<endl;
- cout << "511 keV@ " << p1 << "+-" << ep1 << endl;
- cout << "sig @ 511 keV " << s1 << "+-" << e1 << endl;
-
+ cout << "1100 keV@ " << p1 << "+-" << ep1 << endl;
+ cout << "sig @ 1100 keV " << s1 << "+-" << e1 << endl;
+ return;
   
 TCanvas* c3 = new TCanvas();
   TH1D* h12 = new TH1D("h12","",50,0,12e-9);

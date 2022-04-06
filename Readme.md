@@ -172,15 +172,49 @@ After filtering data using some masks it is possible to see the **Pulse height s
 ![LYSO A3 soectrum](/docs/assets/images/NaI1_LYSO_Spectrum.png)
 ![LYSO A4 spectrum](/docs/assets/images/NaI2_LYSO_Spectrum.png)
 
-### Calibration of the NaI scintillators and LYSO
+## Calibration of the NaI scintillators and LYSO
+
+### NaI calibration with Co and pedestal LYSO
 
 Exploiting the configuration in which the LYSO, which is removed from the table on which are positioned the two NaI, is vetoed, it is possible to calibrate the two NaI. 
 Below the spectra measured with the Co source
 
+![1 2 Co soectrum](/docs/assets/images/Co_spectrum_NaI1_NaI2.png)
+
 ![1 Co soectrum](/docs/assets/images/NaI1_Co_calib.png)
 ![2 Co apectrum](/docs/assets/images/NaI2_Co_calib.png)
 
-Since the LYSO is vetoed it is possible to exploit this configuration to measure the pedestal. The area, in fact, is not exactly calibrated since the signal is affected by a small baseline
+Since the LYSO is vetoed it is possible to exploit this configuration to measure the pedestal. The area, in fact, is not exactly calibrated since the signal is affected by a small baseline.
 
 
 ![Pedestal](/docs/assets/images/LYSO_pedestal.png)
+
+This histogram is obtained by using the area measured by the channel 2 which is exactly the LYSO crystal, shilded by a Pb coating.
+
+
+### LYSO Calibration with Co
+
+In order to calibrate LYSO we need to put NaI1 in anticoincidence with the LYSO and the NaI2. The file used for this section is **Co2_2.dst**. See the loogbook. Below, the histogram shows that it is quite difficult to distinguish the two Co peaks using only the LYSO because its resolution is lower respect to the resolution of the NaI. 
+
+![co lyso](/docs/assets/images/Co_spectrum_NaI2_LYSO.png)
+
+Using the coincidence detection with one of the two NaI we can select some particularly useful events.
+Here, the zoom on the area of interest. Using some mask applied on the data we can select the useful events for the calibration.
+
+![co lyso](/docs/assets/images/Co_spectrum_zoom_peaks.png)
+
+After a careful selection of the data we are able to distinguish the two Co peaks in the LYSO
+
+![co lyso](/docs/assets/images/Co_LYSO_peak_1173.png)
+
+![co lyso](/docs/assets/images/Co_LYSO_peak_1332.png)
+
+From the fit we can measure the value of the center of the gaussian shapes and the resolutions of the peaks
+
+
+
+
+
+
+
+

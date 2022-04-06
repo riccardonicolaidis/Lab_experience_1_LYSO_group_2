@@ -4,7 +4,8 @@
         "Co_LYSO_2.C": "cpp",
         "LYSO_Experience_group_2.C": "cpp",
         "NaI2_cal.C": "cpp",
-        "Na_LYSO_NaI1_NaI2.C": "cpp"
+        "Na_LYSO_NaI1_NaI2.C": "cpp",
+        "LYSOalone.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

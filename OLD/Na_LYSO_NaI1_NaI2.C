@@ -1,44 +1,66 @@
 
-void Na_LYSO_NaI1_NaI2(TString Fname="../DST/Na1_LYSO_NaI1_NaI2.dst"){
+void Na_LYSO_NaI1_NaI2(TString Fname="../DST/Nasource_3_1.dst"){
   TTree* tree = new TTree("tree","data from ascii file");
-  tree->ReadFile(Form("%s",Fname.Data()),"evnum/I:A1/F:A2/F:A3/F:A4/F:T12/F:T24/F");
+  tree->ReadFile(Fname.Data(),"evnum/I:A1/F:A2/F:A3/F:A4/F:T12/F:T32/F:T42/F:T34/F:PK1/F:PK2/F:PK3/F:PK4/F");
 
-  tree->Draw("-A4:-A2", "-A2<0.05e-6  && -A4<4e-9 && abs(T12)<0.1e-6  && -A1<15e-9 && -A1>4e-9 && abs(T24+0.3e-6)<0.1e-6","colz");
+  //  tree->Draw("-A4-A3:T34", "-A3<6e-8 && -A4<6e-8 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0 ", "colz");
+     tree->Draw("-A4:-A3","-A3<4e-8 && -A4<4e-8 ", "colz");
+     //tree->Draw("T32:T34","-A3<4e-8 && -A4<4e-8 && T34!=0 && T32!=0 && abs(T34+5e-9)<10e-9 &&abs(T32-5e-9)<15e-9", "colz");
+     //tree->Draw("-A2/PK2:-A3/PK3","-A3<4e-8 && -A4<4e-8 && T34!=0 && T32!=0 && abs(T34+5e-9)<10e-9 &&abs(T32-5e-9)<15e-9 &&-A2/PK2<0.11e-6&& -A3/PK3<0.3e-6", "colz");
+     TCanvas* cs=new TCanvas();
+     
+        tree->Draw("-A4:-A3","-A3<4e-8 && -A4<4e-8 && T34!=0 && T32!=0 && abs(T34+5e-9)<10e-9 &&abs(T32-5e-9)<15e-9 &&-A2/PK2<0.11e-6&& -A3/PK3<0.3e-6", "colz");
+     //tree->Draw("-A4:-A3", "-A3<6e-8 && -A4<6e-8 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0", "colz");
+  //    tree->Draw("T34:T32", "abs(T34+5e-9)<7e-9 && abs(T32)<2e-8", "colz");
+  
 
+     
 TCanvas* c2 = new TCanvas();
-  TH1D* h1 = new TH1D("h1",";NaI2[V s];Events",200,0,50e-9);
-  tree->Draw("-A2>>h1", "-A4<0.75e-9 && -A4>0.25e-9 && abs(T12)<0.1e-6  && -A1<15e-9 && -A1>4e-9 && abs(T24+0.3e-6)<0.1e-6", "");
-  TF1* f1 = new TF1("f1","[0]+gaus(1)",0,50e-9);
+  TH1D* h1 = new TH1D("h1",";NaI1[V s];Events",400,0,30e-9);
+  tree->Draw("-A3>>h1","-A3<4e-8 && -A4<4e-8 && T34!=0 && T32!=0 && abs(T34+5e-9)<10e-9 &&abs(T32-5e-9)<15e-9 &&-A2/PK2<0.11e-6&& -A3/PK3<0.3e-6");
+  tree->Draw("-A3","","same");
+  h1->SetLineColor(kRed+2);
+ 
+  
+  TF1* f1 = new TF1("f1","[0]+gaus(1)+[4]*x",0,50e-9);
   f1->SetParameter(0,0);
-  f1->SetParameter(1,10);
-  f1->SetParameter(2,40.e-9); //centro gaussiana
-  f1->SetParameter(3,3e-9); //sigma gaussiana
-  h1->Fit("f1","L", " ", 37e-9, 47e-9); //L:likelyhood 
+  f1->SetParameter(1,30);
+  f1->SetParameter(2,20.e-9); //centro gaussiana
+  f1->SetParameter(3,1e-9); //sigma gaussiana
+  f1->SetParameter(4,-1e9);
+  h1->Fit("f1"," ", " ", 15e-9, 30e-9); //L:likelyhood 
+
+  gPad->SetLogy();
   //h1->GetXaxis()->SetTitle("NaI2 (Vxs)");
   double p1 = f1->GetParameter(2); //centro gaussiana
   double ep1 = f1->GetParError(2); //suo errore
   double s1 = f1->GetParameter(3); //sigma gaussiana
   double e1 = f1->GetParError(3);  //suo errore
- cout << "NaI2" <<endl;
- cout << "1275 keV@ " << p1 << "+-" << ep1 << endl;
- cout << "sig @ 1275 keV " << s1 << "+-" << e1 << endl;
-
+ cout << "NaI1" <<endl;
+ cout << "511 keV@ " << p1 << "+-" << ep1 << endl;
+ cout << "sig @ 511 keV " << s1 << "+-" << e1 << endl;
+ return;
+  
 TCanvas* c3 = new TCanvas();
-  TH1D* h12 = new TH1D("h12","",200,0,50e-9);
-  tree->Draw("-A2>>h12", "-A4<2.5e-9 && -A4>1e-9 && abs(T12)<0.1e-6  && -A1<15e-9 && -A1>4e-9 && abs(T24+0.3e-6)<0.1e-6", "");
-  TF1* f12 = new TF1("f12","[0]+ [4]*x + gaus(1)",0,50e-9);
-  f12->SetParameter(0,0);
+  TH1D* h12 = new TH1D("h12","",50,0,12e-9);
+  tree->Draw("-A2>>h12", "abs(-A3-A4-38e-9)<1e-9 &&    abs(-A3-20e-9)<5e-9 &&   abs(-A4-18e-9)<5e-9 && abs(T34+5e-9)<7e-9 && abs(T32)<2e-8 && T34!=0", "colz");
+  
+
+  
+  TF1* f12 = new TF1("f12","[0]*exp(-x/[4]) + gaus(1)",0,50e-9);
+  f12->SetParameter(0,1);
   f12->SetParameter(1,10);
-  f12->SetParameter(2,18.e-9); //centro gaussiana
+  f12->SetParameter(2,6e-9); //centro gaussiana
   f12->SetParameter(3,2e-9); //sigma gaussiana
-  f12->SetParameter(4,0);
-  h12->Fit("f12","L", " ", 16e-9, 21e-9); //L:likelyhood 
-  h12->GetXaxis()->SetTitle("NaI2 (Vxs)");
+  f12->SetParameter(4,2e-9);
+  h12->Fit("f12","L", " ", 3e-9, 9e-9); //L:likelyhood 
+  h12->GetXaxis()->SetTitle("LYSO (Vxs)");
   double p12 = f12->GetParameter(2); //centro gaussiana
   double ep12 = f12->GetParError(2); //suo errore
   double s12 = f12->GetParameter(3); //sigma gaussiana
   double e12 = f12->GetParError(3);  //suo errore
-
+  return;
+  
   cout << "NaI2" <<endl;
  cout << "511 keV@ " << p12 << "+-" << ep12 << endl;
  cout << "sig @ 511 keV " << s12 << "+-" << e12 << endl;

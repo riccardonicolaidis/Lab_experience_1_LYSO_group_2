@@ -2,10 +2,10 @@
 void LYSO_Experience_group_2(){
 
 
-TString Fname0="../DST/LYSO3.dst";
-TString Fname1="../DST/LYSO4.dst";
-TString Fname2="../DST/LYSO5.dst";
-TString Fname3="../DST/LYSO6.dst";
+TString Fname0="..DST/gruppo2/LYSO3.dst";
+TString Fname1="..DST/gruppo2/LYSO4.dst";
+TString Fname2="..DST/gruppo2/LYSO5.dst";
+TString Fname3="..DST/gruppo2/LYSO6.dst";
 
 
 // IMPORTAZIONE DEI DATI

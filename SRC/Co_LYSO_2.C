@@ -48,7 +48,7 @@ TCanvas* c2 = new TCanvas();
  cout << "NaI1" <<endl;
  cout << "1100 keV@ " << p1 << "+-" << ep1 << endl;
  cout << "sig @ 1100 keV " << s1 << "+-" << e1 << endl;
- return;
+
   
 TCanvas* c3 = new TCanvas();
   TH1D* h12 = new TH1D("h12","",50,0,12e-9);
