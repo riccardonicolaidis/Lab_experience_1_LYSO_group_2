@@ -211,6 +211,22 @@ After a careful selection of the data we are able to distinguish the two Co peak
 
 From the fit we can measure the value of the center of the gaussian shapes and the resolutions of the peaks
 
+At this point, we measure the spectrum of a Na 22 source, by exploiting two configurations, depending on the position of the source with respect to the detectors.
+In the first configuration, the source is between the two NaI scintillators. In this way, we expect that the NaIs will detect the two photons at 511 keV, while the LYSO will detect the photon at 1275 keV. The file in which this measurement is recorded is **Na_2_1.dst**.
+
+![na lyso](/docs/assets/images/NaI1_511_1.png)
+
+(The spectrum of the other NaI is very similar to the one reported)
+
+![na lyso](/docs/assets/images/LYSO_1275_1.png)
+
+In the spectrum collected by the LYSO, it is possible to see also the peak at 511 keV, which is a combination both of the photon from the Na source and the summation of the photons from the LYSO.
+
+In the second configuration, the source is between the LYSO and NaI2, which will detect the photons at 511 keV, while NaI1 measures the photon at 1275 keV. The file in which this measurement is recorded is **Na_2_2.dst**.
+
+![na lyso](/docs/assets/images/NaI2_511_2.png)
+![na lyso](/docs/assets/images/LYSO_511_2.png)
+![na lyso](/docs/assets/images/NaI1_1275_2.png)
 
 
 
