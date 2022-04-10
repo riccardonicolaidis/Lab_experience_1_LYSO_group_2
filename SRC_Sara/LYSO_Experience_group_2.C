@@ -3,7 +3,6 @@ void LYSO_Experience_group_2(){
 
 // Stringhe contenenti gli indirizzi dei file 
 
-/*
 TString Fname0="../DST/LYSO3.dst";
 TString Fname1="../DST/LYSO4.dst";
 TString Fname2="../DST/LYSO5.dst";
@@ -13,20 +12,9 @@ TString Fname5 = "../DST/Co2_2.dst";
 TString Fname6 = "../DST/Na2_1.dst";
 TString Fname7 = "../DST/Na2_2.dst";
 
-*/
-
-TString Fname0 = "DST/group2/LYSO3.dst";
-TString Fname1 = "DST/group2/LYSO4.dst";
-TString Fname2 = "DST/group2/LYSO5.dst";
-TString Fname3 = "DST/group2/LYSO6.dst";
-TString Fname4 = "DST/group2/Co2_1.dst";
-TString Fname5 = "DST/group2/Co2_2.dst";
-TString Fname6 = "DST/group2/Na2_1.dst";
-TString Fname7 = "DST/group2/Na2_2.dst";
-
 // Record for calibration
 ofstream calfile;
-calfile.open ("docs/group2/Calibration.txt",ios::app);
+calfile.open ("../docs/assets/Calibration.txt",ios::app);
 char risp;
 
 
@@ -353,28 +341,24 @@ if(n_sezione == 0 || n_sezione == 4){
 	c41->SetGrid();
 	c41->SetTitle("Na_T32_T42");
 	tree4->Draw("T32:T42", Mask_Na1, "colz");
-	c41->SaveAs("docs/group2/images/Na_T32_T42_1.png");
-//	 c41->SaveAs("../docs/assets/images/Na_T32_T42_1.png");
+	c41->SaveAs("../docs/assets/images/Na_T32_T42_1.png");
 
 	TCanvas* c42 = new TCanvas();
  	c42->SetTitle("Na_T34_T32");
 	tree4->Draw("T34:T32", Mask_Na1, "colz");  // because in 0 there is a noisy spot 
-	c42->SaveAs("docs/group2/images/Na_T34_T32_1.png");
-//	 c42->SaveAs("../docs/assets/images/Na_T34_T32_1.png");
+	c42->SaveAs("../docs/assets/images/Na_T34_T32_1.png");
 
 	// ISTOGRAMMI AREE/PICCHI
 	TCanvas* c43 = new TCanvas();
 	c43->SetTitle("Areas/peaks");
 	tree4->Draw("-A3/PK3:-A4/PK4", Mask_Na1 , "colz");
-	c43->SaveAs("docs/group2/images/Na_A3PK3_A4PK4_1.png");
-//	 c43->SaveAs("../docs/assets/images/Na_A3PK3_A4PK4_1.png");
+	c43->SaveAs("../docs/assets/images/Na_A3PK3_A4PK4_1.png");
 
 	// istogramma 2D delle aree NaI1 NaI2
 	TCanvas* c44 = new TCanvas();
 	c44->SetTitle("NaI1 vs NaI2");
 	tree4->Draw("-A3:-A4", Mask_Na1 ,"colz");                    // AREE
-	c44->SaveAs("docs/group2/images/Na_A3_A4_1.png");
-//	 c44->SaveAs("../docs/assets/images/Na_A3_A4_1.png");
+	c44->SaveAs("../docs/assets/images/Na_A3_A4_1.png");
  
 	TCanvas* c442 = new TCanvas();
 	c442->SetTitle("Lyso vs NaI1");
@@ -384,8 +368,7 @@ if(n_sezione == 0 || n_sezione == 4){
 	c45->SetTitle("Peak-to-peak ch 3 and 4");
 	tree4->Draw("PK3:PK4", Mask_Na1, "colz");                   // PICCHI
 	// Istogrammi con dati filtrati 
-	c45->SaveAs("docs/group2/images/Na_PK3_PK4_1.png");
-//	 c44->SaveAs("../docs/assets/images/Na_PK3_PK4_1.png");
+	c44->SaveAs("../docs/assets/images/Na_PK3_PK4_1.png");
 
 	TCanvas* c46 = new TCanvas();
 	TH1D* h41 = new TH1D("h41","Peak @ 511 keV;NaI1 [V s];Events",200,0,4e-8);
@@ -398,8 +381,7 @@ if(n_sezione == 0 || n_sezione == 4){
 	f41->SetParameter(2,25.e-9); //centro gaussiana
 	f41->SetParameter(3,1e-9); //sigma gaussiana
 	h41->Fit("f41","L", " ", 20.5e-9, 30e-9); //L:likelyhood 
-	c46->SaveAs("docs/group2/images/NaI1_511_1.png");
-//	 c44->SaveAs("../docs/assets/images/NaI1_511_1.png");
+	c46->SaveAs("../docs/assets/images/NaI1_511_1.png");
 
    double p41  = f41->GetParameter(2); //centro gaussiana
    double ep41 = f41->GetParError(2); //suo errore
@@ -417,8 +399,7 @@ if(n_sezione == 0 || n_sezione == 4){
 	f42->SetParameter(2,17.e-9); //centro gaussiana
 	f42->SetParameter(3,1e-9); //sigma gaussiana
 	h42->Fit("f42","L", " ", 16e-9, 22e-9); //L:likelyhood 
-	c47->SaveAs("docs/group2/images/NaI2_511_1.png");
-//	 c47->SaveAs("../docs/assets/images/NaI2_511_1.png");
+	c47->SaveAs("../docs/assets/images/NaI2_511_1.png");
 
    double p42  = f42->GetParameter(2); //centro gaussiana
    double ep42 = f42->GetParError(2); //suo errore
@@ -441,8 +422,7 @@ if(n_sezione == 0 || n_sezione == 4){
    f43->SetParameter(7,2e-9); //sigma gaussiana
  
    h43->Fit("f43","L", " ", 2e-9, 7e-9); //L:likelyhood 
-	c48->SaveAs("docs/group2/images/LYSO_1275_1.png");
-//	 c48->SaveAs("../docs/assets/images/LYSO_1275_1.png");
+   c48->SaveAs("../docs/assets/images/LYSO_1275_1.png");
  
    double p43   = f43->GetParameter(2); //centro gaussiana
    double ep43  = f43->GetParError(2); //suo errore
@@ -486,12 +466,12 @@ if(n_sezione == 0 || n_sezione == 5){
    TCanvas* c51 = new TCanvas();
 	c51->SetTitle("Na_T32_T42");
 	tree5->Draw("T32:T42", Mask_Na2, "colz");
-	c51->SaveAs("docs/group2/images/Na_T32_T42_2.png");
+	c51->SaveAs("../docs/assets/images/Na_T32_T42_2.png");
 
 	TCanvas* c512 = new TCanvas();
 	c512->SetTitle("Na_T34_T32");
 	tree5->Draw("T34:T32", Mask_Na2, "colz");  // because in 0 there is a noisy spot 
-	c512->SaveAs("docs/group2/images/Na_T34_T32_2.png");
+	c512->SaveAs("../docs/assets/images/Na_T34_T32_2.png");
 
 	// ISTOGRAMMI AREE/PICCHI
 	// Pulisco i dati eliminando gli eventi di pile-up
@@ -503,7 +483,7 @@ if(n_sezione == 0 || n_sezione == 5){
 	TCanvas* c54 = new TCanvas();
 	c54->SetTitle("NaI1 and NaI2 Areas");
 	tree5->Draw("-A3:-A4", Mask_Na2 ,"colz");                    // AREE
-	c54->SaveAs("docs/group2/images/Na_A3_A4_2.png");
+	c54->SaveAs("../docs/assets/images/Na_A3_A4_2.png");
 	  
 	TCanvas* c542 = new TCanvas();
 	c542->SetTitle("Lyso vs NaI2 Areas");
@@ -513,7 +493,7 @@ if(n_sezione == 0 || n_sezione == 5){
 	c55->SetTitle("Peak-to-peak ch 3 and 4");
 	tree5->Draw("PK3:PK4", Mask_Na2, "colz");                   // PICCHI
 	// Istogrammi con dati filtrati 
-	c55->SaveAs("docs/group2/images/Na_PK3_PK4_2.png");
+	c55->SaveAs("../docs/assets/images/Na_PK3_PK4_2.png");
 
 	TCanvas* c56 = new TCanvas();
 	TH1D* h51 = new TH1D("h51","Peak @ 1275 keV;NaI1 [V s];Events",200,0,7e-8);
@@ -526,7 +506,7 @@ if(n_sezione == 0 || n_sezione == 5){
 	f51->SetParameter(2,56.e-9); //centro gaussiana
 	f51->SetParameter(3,1e-9); //sigma gaussiana
 	h51->Fit("f51","L", " ", 47e-9, 58e-9); //L:likelyhood 
-	c56->SaveAs("docs/group2/images/NaI1_1275_2.png");
+	c56->SaveAs("../docs/assets/images/NaI1_1275_2.png");
 
 	double p51  = f51->GetParameter(2); //centro gaussiana
 	double ep51 = f51->GetParError(2); //suo errore
@@ -547,7 +527,7 @@ if(n_sezione == 0 || n_sezione == 5){
 	f52->SetParameter(2,17.e-9); //centro gaussiana
 	f52->SetParameter(3,1e-9); //sigma gaussiana
 	h52->Fit("f52","L", " ", 14e-9, 21e-9); //L:likelyhood 
-	c57->SaveAs("docs/group2/images/NaI2_511_2.png");
+	c57->SaveAs("../docs/assets/images/NaI2_511_2.png");
 
 	double p52  = f52->GetParameter(2); //centro gaussiana
 	double ep52 = f52->GetParError(2); //suo errore
@@ -565,7 +545,7 @@ if(n_sezione == 0 || n_sezione == 5){
 	f53->SetParameter(2,2.2e-9); //centro gaussiana
 	f53->SetParameter(3,1e-9); //sigma gaussiana
 	h53->Fit("f53","L", " ", 1.6e-9, 3e-9); //L:likelyhood 
-	c58->SaveAs("docs/group2/images/LYSO_511_2.png");
+	c58->SaveAs("../docs/assets/images/LYSO_511_2.png");
 
 	double p53  = f53->GetParameter(2); //centro gaussiana
 	double ep53 = f53->GetParError(2); //suo errore
