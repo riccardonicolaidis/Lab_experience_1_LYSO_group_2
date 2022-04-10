@@ -401,10 +401,10 @@ if(n_sezione == 0 || n_sezione == 4){
 	c46->SaveAs("docs/group2/images/NaI1_511_1.png");
 //	 c44->SaveAs("../docs/assets/images/NaI1_511_1.png");
 
-   double p41 = f41->GetParameter(2); //centro gaussiana
+   double p41  = f41->GetParameter(2); //centro gaussiana
    double ep41 = f41->GetParError(2); //suo errore
-   double s41 = f41->GetParameter(3); //sigma gaussiana
-   double e41 = f41->GetParError(3);  //suo errore
+   double s41  = f41->GetParameter(3); //sigma gaussiana
+   double e41  = f41->GetParError(3);  //suo errore
 
 	TCanvas* c47 = new TCanvas();
 	TH1D* h42 = new TH1D("h42","Peak @ 511 keV;NaI2 [V s];Events",200,0,3e-8);
@@ -420,10 +420,10 @@ if(n_sezione == 0 || n_sezione == 4){
 	c47->SaveAs("docs/group2/images/NaI2_511_1.png");
 //	 c47->SaveAs("../docs/assets/images/NaI2_511_1.png");
 
-   double p42 = f42->GetParameter(2); //centro gaussiana
+   double p42  = f42->GetParameter(2); //centro gaussiana
    double ep42 = f42->GetParError(2); //suo errore
-   double s42 = f42->GetParameter(3); //sigma gaussiana
-   double e42 = f42->GetParError(3);  //suo errore
+   double s42  = f42->GetParameter(3); //sigma gaussiana
+   double e42  = f42->GetParError(3);  //suo errore
 
 	TCanvas* c48 = new TCanvas();
    TH1D* h43 = new TH1D("h43",";LYSO [V s];Events",200,0,8.1e-9);
@@ -457,15 +457,19 @@ if(n_sezione == 0 || n_sezione == 4){
    cin>>risp;
     
    if (risp == 'y'){
+   	calfile << "Calibrazione con sorgente Na 22: 511 keV in NaI1 e NaI2" << endl;
    	calfile << "NaI1" <<endl;
-		calfile << "1275 keV@ " << p41 << "+-" << ep41 << endl;
-		calfile << "sig @ 1275 keV " << s41 << "+-" << e41 << endl;
+		calfile << "511 keV @ " << p41 << "+-" << ep41 << endl;
+		calfile << "sig @ 511 keV " << s41 << "+-" << e41 << endl;
 		calfile << "NaI2" <<endl;
-		calfile << "511 keV@ " << p42 << "+-" << ep42 << endl;
+		calfile << "511 keV @ " << p42 << "+-" << ep42 << endl;
 		calfile << "sig @ 511 keV " << s42 << "+-" << e42 << endl;
 		calfile << "LYSO" <<endl;
-		calfile << "511 keV@ " << p43 << "+-" << ep43 << endl;
+		calfile << "511 keV @ " << p43 << "+-" << ep43 << endl;
 		calfile << "sig @ 511 keV " << s43 << "+-" << e43 << endl;
+		calfile << "LYSO" <<endl;
+		calfile << "1275 keV @ " << p432 << "+-" << ep432 << endl;
+		calfile << "sig @ 1275 keV " << s432 << "+-" << e432 << endl;
 
     	calfile << "*********************************************************************************" << endl;  
 	}
@@ -572,15 +576,15 @@ if(n_sezione == 0 || n_sezione == 5){
    cin>>risp;
     
 	if (risp == 'y'){
-    
+    	calfile << "Calibrazione con sorgente Na 22: 511 keV in NaI2 e LYSO" << endl;
 		calfile << "NaI1" <<endl;
-		calfile << "1275 keV@ " << p51 << "+-" << ep51 << endl;
+		calfile << "1275 keV @ " << p51 << "+-" << ep51 << endl;
 		calfile << "sig @ 1275 keV " << s51 << "+-" << e51 << endl;
 		calfile << "NaI2" <<endl;
-		calfile << "511 keV@ " << p52 << "+-" << ep52 << endl;
+		calfile << "511 keV @ " << p52 << "+-" << ep52 << endl;
 		calfile << "sig @ 511 keV " << s52 << "+-" << e52 << endl;
 		calfile << "LYSO" <<endl;
-		calfile << "511 keV@ " << p53 << "+-" << ep53 << endl;
+		calfile << "511 keV @ " << p53 << "+-" << ep53 << endl;
 		calfile << "sig @ 511 keV " << s53 << "+-" << e53 << endl;
 
 		calfile<<"*********************************************************************************" << endl; 	   
